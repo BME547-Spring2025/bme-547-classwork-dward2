@@ -19,6 +19,7 @@ The database will contain the following:
 Available tests include:
 1. HDL
 2. LDL
+3. Total Cholesterol
 
 
 
