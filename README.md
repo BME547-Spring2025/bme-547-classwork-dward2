@@ -15,6 +15,7 @@ The database will contain the following:
 * Patient medical record number
 * Date of Birth
 * Test Results
+* Address
 
 Available tests include:
 1. HDL
