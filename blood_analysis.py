@@ -13,5 +13,11 @@ def interface():
     
 def hdl_analysis():
     print("HDL")
+    hdl_result = get_hdl_test_result()
+    
+def get_hdl_test_result():
+    hdl_value = input("Enter the HDL test result: ")
+    hdl_value = int(hdl_value)
+    return hdl_value
         
 interface()
