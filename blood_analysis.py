@@ -15,16 +15,16 @@ def interface():
     print("Exiting...")
     
 def hdl_analysis():
-    print("HDL")
-    hdl_result = get_hdl_test_result()
+    test_name = "HDL"
+    hdl_result = get_generic_test_result(test_name)
     hdl_class = analyze_hdl_result(hdl_result)
-    output_hdl_result(hdl_result, hdl_class)
+    output_generic_test_result(test_name, hdl_result, hdl_class)
     
     
-def get_hdl_test_result():
-    hdl_value = input("Enter the HDL test result: ")
-    hdl_value = int(hdl_value)
-    return hdl_value
+def get_generic_test_result(test_name):
+    test_value = input("Enter the {} test result: ".format(test_name))
+    test_value = int(test_value)
+    return test_value
         
 def analyze_hdl_result(hdl_value):
     if hdl_value >= 60:
@@ -34,22 +34,17 @@ def analyze_hdl_result(hdl_value):
     else:
         return "Low"
         
-def output_hdl_result(hdl_result, hdl_class):
-    print("For an HDL value of {}, the result is {}".format(hdl_result,
-                                                            hdl_class))
+def output_generic_test_result(test_name, test_result, test_class):
+    print("For a(n) {} value of {}, the result is {}".format(test_name,
+                                                            test_result,
+                                                            test_class))
                                                             
 def ldl_analysis():
-    print("LDL")
-    ldl_result = get_ldl_test_result()
+    test_name = "LDL"
+    ldl_result = get_generic_test_result(test_name)
     ldl_class = analyze_ldl_result(ldl_result)
-    output_ldl_result(ldl_result, ldl_class)
+    output_generic_test_result(test_name, ldl_result, ldl_class)
     
-    
-def get_ldl_test_result():
-    ldl_value = input("Enter the LDL test result: ")
-    ldl_value = int(ldl_value)
-    return ldl_value
-        
 def analyze_ldl_result(ldl_value):
     if ldl_value < 130:
         return "Normal"
@@ -60,9 +55,5 @@ def analyze_ldl_result(ldl_value):
     else:
         return "Very High"
         
-def output_ldl_result(ldl_result, ldl_class):
-    print("For an LDL value of {}, the result is {}".format(ldl_result,
-                                                            ldl_class))
-                                                            
         
 interface()
