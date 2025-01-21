@@ -4,6 +4,7 @@ def interface():
         print("Options:")
         print("1 - HDL")
         print("2 - LDL")
+        print("3 - Total Cholesterol")
         print("9 - Quit")
         choice = input("Enter test to analyze: ")
         if choice == "9":
@@ -12,6 +13,8 @@ def interface():
             hdl_analysis()
         elif choice == "2":
             ldl_analysis()
+        elif choice == "3":
+            total_analysis()
     print("Exiting...")
     
 def hdl_analysis():
@@ -51,6 +54,16 @@ def ldl_analysis():
                    "Very High": (190, 1000)}
     ldl_class = analyze_generic_result(ldl_result, test_ranges)
     output_generic_test_result(test_name, ldl_result, ldl_class)
+    
+    
+def total_analysis():
+    test_name = "Total Cholesterol"
+    total_result = get_generic_test_result(test_name)
+    test_ranges = {"Normal": (0, 199),
+                   "Borderline High": (200, 239),
+                   "High": (240, 1000)}
+    total_class = analyze_generic_result(total_result, test_ranges)
+    output_generic_test_result(test_name, total_result, total_class)
     
         
 interface()
