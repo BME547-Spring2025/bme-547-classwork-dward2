@@ -3,12 +3,15 @@ def interface():
     while True:
         print("Options:")
         print("1 - HDL")
+        print("2 - LDL")
         print("9 - Quit")
         choice = input("Enter test to analyze: ")
         if choice == "9":
             break
         elif choice == "1":
             hdl_analysis()
+        elif choice == "2":
+            ldl_analysis()
     print("Exiting...")
     
 def hdl_analysis():
@@ -34,6 +37,9 @@ def analyze_hdl_result(hdl_value):
 def output_hdl_result(hdl_result, hdl_class):
     print("For an HDL value of {}, the result is {}".format(hdl_result,
                                                             hdl_class))
+                                                            
+def ldl_analysis():
+    print("ldl analysis")
                                                             
         
 interface()
