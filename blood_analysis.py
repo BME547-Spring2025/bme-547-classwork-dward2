@@ -1,3 +1,6 @@
+print("This is the blood_analysis module")
+print("Python things this is called {}".format(__name__))
+
 def interface():
     print("Blood Analysis Menu")
     while True:
@@ -65,5 +68,5 @@ def total_analysis():
     total_class = analyze_generic_result(total_result, test_ranges)
     output_generic_test_result(test_name, total_result, total_class)
     
-        
-interface()
+if __name__ == "__main__":        
+    interface()
