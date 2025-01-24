@@ -16,22 +16,24 @@ def interface():
         elif choice == "3":
             total_analysis()
     print("Exiting...")
-    
+
+
 def hdl_analysis():
     test_name = "HDL"
     hdl_result = get_generic_test_result(test_name)
     test_ranges = {"Normal": (60, 1000),
                    "Borderline Low": (40, 59),
-                   "Low":(0, 39)}
+                   "Low": (0, 39)}
     hdl_class = analyze_generic_result(hdl_result, test_ranges)
     output_generic_test_result(test_name, hdl_result, hdl_class)
-    
-    
+
+
 def get_generic_test_result(test_name):
     test_value = input("Enter the {} test result: ".format(test_name))
     test_value = int(test_value)
     return test_value
-        
+      
+# analyze_HDL_result
 def analyze_generic_result(test_value, test_ranges):
     for category in test_ranges:
         min_value = test_ranges[category][0]
@@ -42,9 +44,9 @@ def analyze_generic_result(test_value, test_ranges):
 
 def output_generic_test_result(test_name, test_result, test_class):
     print("For a(n) {} value of {}, the result is {}".format(test_name,
-                                                            test_result,
-                                                            test_class))
-                                                            
+                                                             test_result,
+                                                             test_class))
+
 def ldl_analysis():
     test_name = "LDL"
     ldl_result = get_generic_test_result(test_name)
@@ -65,5 +67,5 @@ def total_analysis():
     total_class = analyze_generic_result(total_result, test_ranges)
     output_generic_test_result(test_name, total_result, total_class)
     
-        
-interface()
+if __name__ == "__main__":
+    interface()
