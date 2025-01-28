@@ -32,8 +32,8 @@ def get_generic_test_result(test_name):
     test_value = input("Enter the {} test result: ".format(test_name))
     test_value = int(test_value)
     return test_value
-      
-# analyze_HDL_result
+
+
 def analyze_generic_result(test_value, test_ranges):
     for category in test_ranges:
         min_value = test_ranges[category][0]
@@ -42,10 +42,12 @@ def analyze_generic_result(test_value, test_ranges):
             return category
     return "Out of Range"
 
+
 def output_generic_test_result(test_name, test_result, test_class):
     print("For a(n) {} value of {}, the result is {}".format(test_name,
                                                              test_result,
                                                              test_class))
+
 
 def ldl_analysis():
     test_name = "LDL"
@@ -56,8 +58,8 @@ def ldl_analysis():
                    "Very High": (190, 1000)}
     ldl_class = analyze_generic_result(ldl_result, test_ranges)
     output_generic_test_result(test_name, ldl_result, ldl_class)
-    
-    
+
+
 def total_analysis():
     test_name = "Total Cholesterol"
     total_result = get_generic_test_result(test_name)
@@ -66,6 +68,7 @@ def total_analysis():
                    "High": (240, 1000)}
     total_class = analyze_generic_result(total_result, test_ranges)
     output_generic_test_result(test_name, total_result, total_class)
-    
+
+
 if __name__ == "__main__":
     interface()

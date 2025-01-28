@@ -11,13 +11,10 @@ def test_analyze_generic_result(test_value, expected):
     from blood_analysis import analyze_generic_result
     test_ranges = {"Normal": (60, 1000),
                    "Borderline Low": (40, 59),
-                   "Low":(0, 39)}
- 
+                   "Low": (0, 39)}
+
     # Act
     answer = analyze_generic_result(test_value,
                                     test_ranges)
     # Assert
     assert answer == expected
-
-    
-    

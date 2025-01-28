@@ -25,7 +25,7 @@ def parse_weight_input(weight_input):
 def convert_lb_to_kg(weight_lb):
     weight_kg = weight_lb / 2.20462
     return weight_kg
-    
+
 
 def parse_when_no_space(weight_input):
     weight_in = weight_input.strip(" ")
