@@ -37,5 +37,7 @@ def parse_when_no_space(weight_input):
     weight = weight_input[:i]
     units = weight_input[i:]
     return weight, units
+
+
 if __name__ == "__main__":
     input_weight_entry()
