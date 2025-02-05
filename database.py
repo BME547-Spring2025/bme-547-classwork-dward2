@@ -1,30 +1,3 @@
-"""
-Patient = {"Last name":
-           "First name":
-           "MRN":
-           "Age":
-           "Tests":
-           }
-
-
-[last name, first name, mrn (int), age(int),
-            [(test_name(str), test_value(int)),
-              (test_name(str), test_value(int))]]
-
-* Read in test results from file
-* for each test result, add the ("HDL", 45) tuple to the
-correct patient
-* print out db to see if it worked
-
-output_database
-Name:  First Name, Last Name
-DOB:  01/01/1980
-MRN: 12345
-Status:  Adult / Minor
-Test Results:  ...
-
-
-"""
 from patient_class import Patient
 
 db = []
@@ -124,14 +97,14 @@ def main():
         "blood_test_data.txt")
     add_test_data_to_db(test_data)
     output_database()
-    
+
+
 def class_demo():
     patient_1 = Patient()
     patient_1.first_name = "David"
     patient_2 = Patient()
     patient_2.first_name = "John"
     print(patient_1.first_name, patient_2.first_name)
-    
 
 
 if __name__ == "__main__":
