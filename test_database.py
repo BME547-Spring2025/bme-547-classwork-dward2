@@ -16,6 +16,7 @@ def test_create_patient():
 def test_create_database():
     # Arrange
     from database import create_database, db
+    # Arrange
     db.clear()
     input_data = ["Ann Ables,1553,30",
                   "Bob Boyles,1,20"]
