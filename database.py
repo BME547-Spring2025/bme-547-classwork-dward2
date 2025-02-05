@@ -1,5 +1,13 @@
 """
-Patient = [last name, first name, mrn (int), age(int),
+Patient = {"Last name":
+           "First name":
+           "MRN":
+           "Age":
+           "Tests":
+           }
+
+
+[last name, first name, mrn (int), age(int),
             [(test_name(str), test_value(int)),
               (test_name(str), test_value(int))]]
 
@@ -49,13 +57,17 @@ def create_patient(line):
     first_name, last_name = data[0].split(" ")
     mrn = int(data[1])
     age = int(data[2])
-    patient = [last_name, first_name, mrn, age, []]
+    patient = {"Last Name": last_name,
+               "First Name": first_name,
+               "MRN": mrn,
+               "Age": age,
+               "Tests": []}
     return patient
 
 
 def find_patient(mrn):
     for patient in db:
-        if patient[2] == mrn:
+        if patient["MRN"] == mrn:
             return patient
     return None
 
@@ -63,7 +75,7 @@ def find_patient(mrn):
 def add_test_result_to_patient(patient, test_name,
                                test_value):
     new_result = (test_name, test_value)
-    patient[4].append(new_result)
+    patient["Tests"].append(new_result)
 
 
 def add_test_data_to_db(test_data):
@@ -77,7 +89,7 @@ def add_test_data_to_db(test_data):
 
 
 def is_minor(patient):
-    if patient[3] < 18:
+    if patient["Age"] < 18:
         return True
     else:
         return False
@@ -85,15 +97,15 @@ def is_minor(patient):
 
 def create_patient_output(patient):
     out_string = ""
-    out_string += "Name: {} {}\n".format(patient[1],
-                                         patient[0])
-    out_string += "MRN: {}\n".format(patient[2])
+    out_string += "Name: {} {}\n".format(patient["First Name"],
+                                         patient["Last Name"])
+    out_string += "MRN: {}\n".format(patient["MRN"])
     if is_minor(patient):
         status = "Minor"
     else:
         status = "Adult"
     out_string += "Status: {}\n".format(status)
-    out_string += "Test Results: {}\n".format(patient[4])
+    out_string += "Test Results: {}\n".format(patient["Tests"])
     return out_string
 
 
