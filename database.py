@@ -25,6 +25,7 @@ Test Results:  ...
 
 
 """
+from patient_class import Patient
 
 db = []
 
@@ -123,7 +124,16 @@ def main():
         "blood_test_data.txt")
     add_test_data_to_db(test_data)
     output_database()
+    
+def class_demo():
+    patient_1 = Patient()
+    patient_1.first_name = "David"
+    patient_2 = Patient()
+    patient_2.first_name = "John"
+    print(patient_1.first_name, patient_2.first_name)
+    
 
 
 if __name__ == "__main__":
-    main()
+    class_demo()
+    # main()
