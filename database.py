@@ -1,10 +1,10 @@
 """
-Patient = [last name, first name, mrn (int), age(int), 
+Patient = [last name, first name, mrn (int), age(int),
             [(test_name(str), test_value(int)),
               (test_name(str), test_value(int))]]
 
 * Read in test results from file
-* for each test result, add the ("HDL", 45) tuple to the 
+* for each test result, add the ("HDL", 45) tuple to the
 correct patient
 * print out db to see if it worked
 
@@ -20,7 +20,7 @@ def load_patient_data_file(filename):
     data = in_file.readlines()
     in_file.close()
     return data
-    
+
 
 def load_patient_data_file_singles(filename):
     with open(filename, 'r') as in_file:
@@ -29,14 +29,14 @@ def load_patient_data_file_singles(filename):
         for line in in_file:
             data.append(line)
     return data
-    
-    
+
+
 def create_database(data):
     for line in data:
         patient = create_patient(line)
         db.append(patient)
-        
-        
+
+
 def create_patient(line):
     line = line.strip("\n")
     data = line.split(",")
@@ -45,21 +45,21 @@ def create_patient(line):
     age = int(data[2])
     patient = [last_name, first_name, mrn, age, []]
     return patient
-    
-    
+
+
 def find_patient(mrn):
     for patient in db:
         if patient[2] == mrn:
             return patient
     return None
-    
-    
+
+
 def add_test_result_to_patient(patient, test_name,
                                test_value):
     new_result = (test_name, test_value)
     patient[4].append(new_result)
-    
-    
+
+
 def add_test_data_to_db(test_data):
     for data in test_data:
         line = data.strip("\n")
@@ -68,7 +68,7 @@ def add_test_data_to_db(test_data):
         patient = find_patient(mrn)
         add_test_result_to_patient(patient, test_name,
                                    int(test_value))
-           
+
 
 def main():
     data = load_patient_data_file("patient_data.txt")
@@ -78,9 +78,7 @@ def main():
         "blood_test_data.txt")
     add_test_data_to_db(test_data)
     print(db)
-    
-    
-    
-    
+
+
 if __name__ == "__main__":
     main()
