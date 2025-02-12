@@ -31,25 +31,15 @@ def create_patient(line):
     first_name, last_name = data[0].split(" ")
     mrn = int(data[1])
     age = int(data[2])
-    patient = {"Last Name": last_name,
-               "First Name": first_name,
-               "MRN": mrn,
-               "Age": age,
-               "Tests": []}
+    patient = Patient(first_name, last_name, mrn, age)
     return patient
 
 
 def find_patient(mrn):
     for patient in db:
-        if patient["MRN"] == mrn:
+        if patient.mrn == mrn:
             return patient
     return None
-
-
-def add_test_result_to_patient(patient, test_name,
-                               test_value):
-    new_result = (test_name, test_value)
-    patient["Tests"].append(new_result)
 
 
 def add_test_data_to_db(test_data):
@@ -58,12 +48,12 @@ def add_test_data_to_db(test_data):
         mrn, test_name, test_value = line.split(",")
         mrn = int(mrn)
         patient = find_patient(mrn)
-        add_test_result_to_patient(patient, test_name,
-                                   int(test_value))
+        patient.add_test_result(test_name,
+                                int(test_value))
 
 
 def is_minor(patient):
-    if patient["Age"] < 18:
+    if patient.age < 18:
         return True
     else:
         return False
@@ -71,15 +61,15 @@ def is_minor(patient):
 
 def create_patient_output(patient):
     out_string = ""
-    out_string += "Name: {} {}\n".format(patient["First Name"],
-                                         patient["Last Name"])
-    out_string += "MRN: {}\n".format(patient["MRN"])
+    out_string += "Name: {} {}\n".format(patient.first_name,
+                                         patient.last_name)
+    out_string += "MRN: {}\n".format(patient.mrn)
     if is_minor(patient):
         status = "Minor"
     else:
         status = "Adult"
     out_string += "Status: {}\n".format(status)
-    out_string += "Test Results: {}\n".format(patient["Tests"])
+    out_string += "Test Results: {}\n".format(patient.tests)
     return out_string
 
 
@@ -102,11 +92,10 @@ def main():
 def class_demo():
     patient_1 = Patient()
     patient_1.first_name = "David"
-    patient_2 = Patient()
-    patient_2.first_name = "John"
-    print(patient_1.first_name, patient_2.first_name)
+    patient_1.mrn = 1223
+    print(patient_1.create_output())
 
 
 if __name__ == "__main__":
-    class_demo()
-    # main()
+    # class_demo()
+    main()
