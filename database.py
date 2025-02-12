@@ -52,30 +52,9 @@ def add_test_data_to_db(test_data):
                                 int(test_value))
 
 
-def is_minor(patient):
-    if patient.age < 18:
-        return True
-    else:
-        return False
-
-
-def create_patient_output(patient):
-    out_string = ""
-    out_string += "Name: {} {}\n".format(patient.first_name,
-                                         patient.last_name)
-    out_string += "MRN: {}\n".format(patient.mrn)
-    if is_minor(patient):
-        status = "Minor"
-    else:
-        status = "Adult"
-    out_string += "Status: {}\n".format(status)
-    out_string += "Test Results: {}\n".format(patient.tests)
-    return out_string
-
-
 def output_database():
     for patient in db:
-        out_string = create_patient_output(patient)
+        out_string = patient.create_output()
         print(out_string)
 
 
@@ -89,13 +68,5 @@ def main():
     output_database()
 
 
-def class_demo():
-    patient_1 = Patient()
-    patient_1.first_name = "David"
-    patient_1.mrn = 1223
-    print(patient_1.create_output())
-
-
 if __name__ == "__main__":
-    # class_demo()
     main()

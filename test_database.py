@@ -1,4 +1,3 @@
-import pytest
 from patient_class import Patient
 
 
@@ -40,7 +39,7 @@ def test_create_database_other():
 
 def test_find_patient():
     # Arrange
-    from database import find_patient, db, create_database
+    from database import find_patient, db
     db.clear()
     new_patient = Patient("First", "Last", 1, 30)
     db.append(new_patient)
@@ -51,24 +50,18 @@ def test_find_patient():
     assert answer == new_patient
 
 
-@pytest.mark.parametrize("age, expected", [
-    (15, True),
-    (22, False)])
-def test_patient_is_minor_true(age, expected):
+def test_add_test_data_to_db():
     # Arrange
-    patient = Patient("First", "Last", 1, age)
+    from database import add_test_data_to_db, db
+    db.clear()
+    db.append(Patient("One", "One", 1, 11))
+    db.append(Patient("Two", "Two", 2, 22))
+    test_data = ["1,HDL,100\n",
+                 "1,LDL,50\n",
+                 "2,HDL,75\n"]
     # Act
-    answer = patient.is_minor()
+    add_test_data_to_db(test_data)
     # Assert
-    assert answer == expected
-
-
-def test_patient_add_test_result():
-    # Arrange
-    patient = Patient("First", "Last", 1, 15)
-    test_name = "HDL"
-    test_value = 50
-    # Act
-    patient.add_test_result(test_name, test_value)
-    # Assert
-    assert patient.tests[-1] == (test_name, test_value)
+    assert len(db[0].tests) == 2
+    assert db[0].tests[1][1] == 50
+    assert len(db[1].tests) == 1
