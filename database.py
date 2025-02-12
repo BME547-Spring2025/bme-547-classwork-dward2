@@ -1,30 +1,4 @@
-"""
-Patient = {"Last name":
-           "First name":
-           "MRN":
-           "Age":
-           "Tests":
-           }
-
-
-[last name, first name, mrn (int), age(int),
-            [(test_name(str), test_value(int)),
-              (test_name(str), test_value(int))]]
-
-* Read in test results from file
-* for each test result, add the ("HDL", 45) tuple to the
-correct patient
-* print out db to see if it worked
-
-output_database
-Name:  First Name, Last Name
-DOB:  01/01/1980
-MRN: 12345
-Status:  Adult / Minor
-Test Results:  ...
-
-
-"""
+from patient_class import Patient
 
 db = []
 
@@ -57,25 +31,15 @@ def create_patient(line):
     first_name, last_name = data[0].split(" ")
     mrn = int(data[1])
     age = int(data[2])
-    patient = {"Last Name": last_name,
-               "First Name": first_name,
-               "MRN": mrn,
-               "Age": age,
-               "Tests": []}
+    patient = Patient(first_name, last_name, mrn, age)
     return patient
 
 
 def find_patient(mrn):
     for patient in db:
-        if patient["MRN"] == mrn:
+        if patient.mrn == mrn:
             return patient
     return None
-
-
-def add_test_result_to_patient(patient, test_name,
-                               test_value):
-    new_result = (test_name, test_value)
-    patient["Tests"].append(new_result)
 
 
 def add_test_data_to_db(test_data):
@@ -84,34 +48,13 @@ def add_test_data_to_db(test_data):
         mrn, test_name, test_value = line.split(",")
         mrn = int(mrn)
         patient = find_patient(mrn)
-        add_test_result_to_patient(patient, test_name,
-                                   int(test_value))
-
-
-def is_minor(patient):
-    if patient["Age"] < 18:
-        return True
-    else:
-        return False
-
-
-def create_patient_output(patient):
-    out_string = ""
-    out_string += "Name: {} {}\n".format(patient["First Name"],
-                                         patient["Last Name"])
-    out_string += "MRN: {}\n".format(patient["MRN"])
-    if is_minor(patient):
-        status = "Minor"
-    else:
-        status = "Adult"
-    out_string += "Status: {}\n".format(status)
-    out_string += "Test Results: {}\n".format(patient["Tests"])
-    return out_string
+        patient.add_test_result(test_name,
+                                int(test_value))
 
 
 def output_database():
     for patient in db:
-        out_string = create_patient_output(patient)
+        out_string = patient.create_output()
         print(out_string)
 
 
