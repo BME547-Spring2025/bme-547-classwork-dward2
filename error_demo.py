@@ -12,11 +12,11 @@ def calc_square_root(n):
         from my_math_calculator import sqrt
     except ModuleNotFoundError:
         from math import sqrt
-    
+
     answer = sqrt(n)
     return answer
-    
-    
+
+
 def main():
     in_variable = 1
     try:
@@ -28,7 +28,7 @@ def main():
     else:
         print("No errors")
     print(answer)
-    
-    
+
+
 if __name__ == "__main__":
     main()
