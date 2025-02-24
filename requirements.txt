@@ -1,4 +1,4 @@
 wikipedia
 pytest
 pytest-pycodestyle
-
+requests

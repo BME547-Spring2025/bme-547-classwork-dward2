@@ -1,32 +1,41 @@
 import requests
 
-# server = "https://api.github.com"
 
-# r = requests.get(server + "/repos/dward2/BME547/branches")
-# print(r)
-# print(type(r))
-# print(r.status_code)
-# print(r.text)
-# if r.status_code != 200:
-#     print("There was an error")
-#     print(r.text)
-# else:
-#     data = r.json()
-#     for branch in data:
-#         print(branch["name"])
+def get_request_demo():
+    server = "https://api.github.com"
 
-server = "http://vcm-43716.vm.duke.edu:5000"
+    r = requests.get(server + "/repos/dward2/BME547/branches")
+    print(r)
+    print(type(r))
+    print(r.status_code)
+    print(r.text)
+    if r.status_code != 200:
+        print("There was an error")
+        print(r.text)
+    else:
+        data = r.json()
+        for branch in data:
+            print(branch["name"])
 
-student_data = {
-   "name": "David Ward",
-   "net_id": "daw74",
-   "e-mail": "david.a.ward@duke.edu"
-}
 
-r = requests.post(server + "/student", 
-                  json=student_data)
-print(r.status_code)
-print(r.text)
+def post_request_demo():
+    server = "http://vcm-43716.vm.duke.edu:5000"
 
-r =requests.get(server + "/list")
-print(r.json())
+    student_data = {
+                    "name": "David Ward",
+                    "net_id": "daw74",
+                    "e-mail": "david.a.ward@duke.edu"
+                   }
+
+    r = requests.post(server + "/student",
+                      json=student_data)
+    print(r.status_code)
+    print(r.text)
+
+    r = requests.get(server + "/list")
+    print(r.json())
+
+
+if __name__ == "__main__":
+    get_request_demo()
+    post_request_demo
