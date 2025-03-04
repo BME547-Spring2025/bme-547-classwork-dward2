@@ -1,7 +1,7 @@
 class Patient:
 
     def __init__(self, first_name, last_name,
-                 mrn, age=0, tests=None):
+                 mrn, age=0, tests=None, blood_type=None):
         self.first_name = first_name
         self.last_name = last_name
         self.mrn = mrn
@@ -10,8 +10,9 @@ class Patient:
             self.tests = []
         else:
             self.tests = tests
+        self.blood_type = blood_type
 
-    def __str__(self):
+    def __repr__(self):
         return "Patient, mrn={}, {} {}".format(self.mrn,
                                                self.first_name,
                                                self.last_name)
