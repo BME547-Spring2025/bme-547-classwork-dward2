@@ -14,8 +14,8 @@ def post_new_patient():
     The "/new_patient" route is called to add a new patient to
     the database.  This route expects a JSON-encoded dictionary
     with the following format:
-    
-    {"name": <str_patient_name>, "id": <int_patient_id>, 
+
+    {"name": <str_patient_name>, "id": <int_patient_id>,
      "blood_type": <str_patient_blood_type>}
 
     where <str_patient_name> is a string containing the name of
@@ -31,7 +31,7 @@ def post_new_patient():
 
     Returns:
         str: Message about success or failure of request,
-        int: Response code of 200 or 400  
+        int: Response code of 200 or 400
     """
     # Get the input data
     in_data = request.get_json()
@@ -49,7 +49,7 @@ def post_new_patient():
     add_patient_to_db(in_data)
     # Return a response
     logging.info("Entry added: {}".format(in_data))
-    answer = {"message": "Patiend added", 
+    answer = {"message": "Patiend added",
               "data": in_data}
     return jsonify(answer), 200
 
@@ -97,7 +97,7 @@ def validate_blood_type(blood_type):
 
 def add_patient_to_db(in_data):
     """Adds patient to the database
-    
+
     This function receives a dictionary containing patient information.
     That information is used to instantiate a Patient class instance.
     That instance is then appended to the global `db` variable.
@@ -108,7 +108,7 @@ def add_patient_to_db(in_data):
             its expected contents
     """
     first_name, last_name = in_data["name"].split(" ")
-    new_patient = Patient(first_name, last_name, 
+    new_patient = Patient(first_name, last_name,
                           in_data["id"],
                           blood_type=in_data["blood_type"])
     db.append(new_patient)
@@ -123,37 +123,37 @@ def post_add_test():
     The input to this route should be a dictionary as the following
     example:
 
-    {"id": <int_patient_id>, "test_name": <str_test_name>", 
+    {"id": <int_patient_id>, "test_name": <str_test_name>",
     "test_result": <int_test_result>}
 
     where <int_patient_id> is an integer of the patient's medical
-    record number, <str_test_name> is a string with the name of 
+    record number, <str_test_name> is a string with the name of
     the test, and <int_test_result> is an integer with the value of
     the test result.
 
     The function validates that the correct information was received
     by the route and returns an error message if not.
 
-    The function then finds the correct patient in the database 
+    The function then finds the correct patient in the database
     using the mrn and then adds the test name and test result as
     a tuple to the test list of the patient.
 
     Returns:
         str, int: a string with a message about the success or
             failure of the request, and a response code of either
-            200 or 400. 
+            200 or 400.
     """
     in_data = request.get_json()
     expected_keys = ["id", "test_name", "test_result"]
     expected_types = [int, str, int]
     check_input = validate_post_input(in_data,
-                                       expected_keys,
-                                       expected_types)
+                                      expected_keys,
+                                      expected_types)
     if check_input is not True:
         return check_input, 400
     result = add_test_to_patient(in_data)
     if result is not True:
-         return result, 400
+        return result, 400
     return "Patient added", 200
 
 
@@ -189,7 +189,7 @@ def get_get_results(patient_id):
             extracted from the route URL.
 
     Returns:
-        list, int:   A list of the test results for the specified 
+        list, int:   A list of the test results for the specified
             patient and a response status code, or
         str, int:  A string containing an error message if there
             was a problem with the request and a response status code.
@@ -216,11 +216,10 @@ def initialize_server():
                         filemode='w',
                         level=logging.INFO)
     add_patient_to_db({"name": "Ann Ables",
-                       "id":1,
+                       "id": 1,
                        "blood_type": "A+"})
-    
+
 
 if __name__ == "__main__":
     initialize_server()
     app.run()
-    
