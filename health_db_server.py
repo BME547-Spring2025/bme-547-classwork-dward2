@@ -49,7 +49,7 @@ def post_new_patient():
     add_patient_to_db(in_data)
     # Return a response
     logging.info("Entry added: {}".format(in_data))
-    answer = {"message": "Patiend added",
+    answer = {"message": "Patient added",
               "data": in_data}
     return jsonify(answer), 200
 
@@ -154,7 +154,7 @@ def post_add_test():
     result = add_test_to_patient(in_data)
     if result is not True:
         return result, 400
-    return "Patient added", 200
+    return "Test added", 200
 
 
 def add_test_to_patient(in_data):
