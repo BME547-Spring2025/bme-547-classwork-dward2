@@ -1,10 +1,9 @@
 from flask import Flask, request, jsonify
 from patient_class import Patient
 import logging
+from pymongo import MongoClient
 
 app = Flask(__name__)
-
-db = []
 
 
 @app.route("/new_patient", methods=["POST"])
@@ -111,7 +110,7 @@ def add_patient_to_db(in_data):
     new_patient = Patient(first_name, last_name,
                           in_data["id"],
                           blood_type=in_data["blood_type"])
-    db.append(new_patient)
+    new_patient.save()
 
 
 @app.route("/add_test", methods=["POST"])
@@ -161,16 +160,18 @@ def add_test_to_patient(in_data):
     patient = get_patient(in_data["id"])
     if patient is False:
         return "Patient not found"
-    patient.tests.append((in_data["test_name"],
-                          in_data["test_result"]))
+    patient.add_test_result(in_data["test_name"],
+                            in_data["test_result"])
+    patient.save()
     return True
 
 
 def get_patient(mrn):
-    for patient in db:
-        if patient.mrn == mrn:
-            return patient
-    return False
+    patient = Patient.get_patient_from_db(mrn)
+    if patient is None:
+        return False
+    else:
+        return patient
 
 
 @app.route("/get_results/<patient_id>", methods=["GET"])
@@ -215,9 +216,19 @@ def initialize_server():
     logging.basicConfig(filename="health_db_server.log",
                         filemode='w',
                         level=logging.INFO)
+    connect_to_db()
     add_patient_to_db({"name": "Ann Ables",
                        "id": 1,
                        "blood_type": "A+"})
+    
+def connect_to_db():
+    print("Connecting to database...")
+    url = ("mongodb+srv://spring25:spring25@bme547.ba348.mongodb.net/"
+           "?retryWrites=true&w=majority&appName=BME547")
+    Patient.client = MongoClient(url)
+    Patient.database = Patient.client["Class_Database"]
+    Patient.collection = Patient.database["Patients"]
+    print("Connection done")
 
 
 if __name__ == "__main__":

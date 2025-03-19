@@ -1,5 +1,9 @@
 class Patient:
 
+    client = None
+    database = None
+    collection = None
+
     def __init__(self, first_name, last_name,
                  mrn, age=0, tests=None, blood_type=None):
         self.first_name = first_name
@@ -54,3 +58,37 @@ class Patient:
     def add_test_result(self, test_name, test_value):
         new_result = (test_name, test_value)
         self.tests.append(new_result)
+
+    def save(self):
+        mongodb_patient = Patient.get_patient_from_db(self.mrn)
+        mongodb_dict = {
+            "_id": self.mrn,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "age": self.age,
+            "tests": self.tests,
+            "blood_type": self.blood_type
+        }
+        if mongodb_patient is None:
+            Patient.collection.insert_one(mongodb_dict)
+        else:
+            Patient.collection.replace_one(
+                {"_id": self.mrn}, mongodb_dict
+            )
+
+    @classmethod
+    def get_patient_from_db(cls, mrn):
+        document = Patient.collection.find_one(
+            {"_id": mrn}
+        )
+        if document is None:
+            return None
+        new_patient = Patient(
+            document["first_name"],
+            document["last_name"],
+            document["_id"],
+            document["age"],
+            document["tests"],
+            document["blood_type"]
+        )
+        return new_patient
