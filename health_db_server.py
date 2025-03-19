@@ -99,7 +99,8 @@ def add_patient_to_db(in_data):
 
     This function receives a dictionary containing patient information.
     That information is used to instantiate a Patient class instance.
-    That instance is then appended to the global `db` variable.
+    Then, the save method of the Patient class instance is used to save
+    the patient information to the MongoDB Database.
 
     Args:
         in_data (dict): A dictionary containing patient information.
@@ -134,8 +135,8 @@ def post_add_test():
     by the route and returns an error message if not.
 
     The function then finds the correct patient in the database
-    using the mrn and then adds the test name and test result as
-    a tuple to the test list of the patient.
+    using the mrn and then calls a function to add the test name and
+    test result to the patient's entry in the database.
 
     Returns:
         str, int: a string with a message about the success or
@@ -157,6 +158,27 @@ def post_add_test():
 
 
 def add_test_to_patient(in_data):
+    """Add test to patient record in MongoDB Database
+
+    This function first calls the get_patient function to retrieve
+    the patient from the MongoDB database.  If no patient is 
+    found with the given mrn, then a string is returned indicating
+    that the Patient was not found.  If a patient was found, an
+    instance of the Patient class is returned containing the patient
+    information.  The add_test_result method of the Patient class
+    instance is invoked to add the test information to the patient
+    record.  Then, the updated record is saved to MongoDB using the
+    save method.
+
+    Args:
+        in_data: a dictionary containing information about a test to
+                 be added to the patient
+
+    Returns:
+        str: A string with a message that the patient wasn't found, or
+        bool: A value of True if the test was successfully added to
+              the patient.
+    """
     patient = get_patient(in_data["id"])
     if patient is False:
         return "Patient not found"
@@ -167,6 +189,24 @@ def add_test_to_patient(in_data):
 
 
 def get_patient(mrn):
+    """Retrieve a Patient record from MongoDB database
+
+    Using the get_patient_from_db method of the Patient class,
+    an instance of the Patient class is obtained with information
+    about the patient with the given mrn number.  That Patient
+    instance is returned.  But, if there is no patient with the
+    given mrn number, get_patient_from_db will return None and
+    this function will return a boolean value of False.
+
+    Args:
+        mrn (int):  the medical record number of the patient to find
+
+    Returns:
+        Patient:  a Patient instance containing information for the
+                  desired patient, or
+        bool:  a boolean of False if the patient does not exist in
+               the database  
+    """
     patient = Patient.get_patient_from_db(mrn)
     if patient is None:
         return False
@@ -222,6 +262,14 @@ def initialize_server():
                        "blood_type": "A+"})
     
 def connect_to_db():
+    """Setup connection to MongoDB Database
+
+    The url string contains the connection string needed to access
+    MongoDB.  Then, a MongoClient is created using this url and
+    saved in the Patient.client class attribute.  A specific database
+    and document collection are then created and stored in the
+    Patient class.
+    """
     print("Connecting to database...")
     url = ("mongodb+srv://spring25:spring25@bme547.ba348.mongodb.net/"
            "?retryWrites=true&w=majority&appName=BME547")
