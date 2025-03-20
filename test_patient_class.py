@@ -47,7 +47,7 @@ def test_patient_add_test_result():
 
 
 def test_patient_save_new():
-     # Arrange
+    # Arrange
     Patient.clear_database()
     first_name = "Ann"
     last_name = "Ables"

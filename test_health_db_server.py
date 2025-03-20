@@ -47,7 +47,7 @@ def test_post_add_test():
                      "test_name": "HDL",
                      "test_result": 50}
     # Act
-    r = client.post("/add_test", 
+    r = client.post("/add_test",
                     json=new_test_json)
     assert r.status_code == 200
     assert r.text == "Test added"

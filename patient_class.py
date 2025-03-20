@@ -10,7 +10,7 @@ class Patient:
     attributes.
 
     Class Attributes
-        client (pymongo.MongoClient): the client connection to the 
+        client (pymongo.MongoClient): the client connection to the
                                       MongoDB server
         database (pymongo.Database): connection to the appropriate
                                      database in MongoDB
@@ -63,11 +63,11 @@ class Patient:
 
     def __repr__(self):
         """Provides string representation of the class
-        
+
         When a class instance is printed or displayed in a debugger,
         this function defines that will be displayed.  It will
         display the name of the class, the instance mrn number, and
-        the instance first and last name.        
+        the instance first and last name.
         """
         return "Patient, mrn={}, {} {}".format(self.mrn,
                                                self.first_name,
@@ -114,7 +114,7 @@ class Patient:
 
     def add_test_result(self, test_name, test_value):
         """Add test results to the patient information
-        
+
         This method receives a test name and its value for a
         test conducted on a patient.  That information is then
         added as a tuple to the patient test list.
@@ -137,10 +137,10 @@ class Patient:
         a dictionary with the key:value pairs needed for storing
         information in MongoDB.  Since the mrn is the primary key in
         the MongoDB database, it is assigned the '_id' key.
-        Then, if a patient with the mrn does not exist, a new patient 
-        document is inserted into the MongoDB collection stored in the 
-        class attribute "collection". If a patient already exists in 
-        the database with the mrn number, that document is replaced 
+        Then, if a patient with the mrn does not exist, a new patient
+        document is inserted into the MongoDB collection stored in the
+        class attribute "collection". If a patient already exists in
+        the database with the mrn number, that document is replaced
         in MongoDB with the new patient information.
         """
         mongodb_patient = Patient.get_patient_from_db(self.mrn)
@@ -200,4 +200,3 @@ class Patient:
     def clear_database(cls):
         """Deletes all documents in the collection"""
         Patient.collection.delete_many({})
-        

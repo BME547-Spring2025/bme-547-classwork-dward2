@@ -161,7 +161,7 @@ def add_test_to_patient(in_data):
     """Add test to patient record in MongoDB Database
 
     This function first calls the get_patient function to retrieve
-    the patient from the MongoDB database.  If no patient is 
+    the patient from the MongoDB database.  If no patient is
     found with the given mrn, then a string is returned indicating
     that the Patient was not found.  If a patient was found, an
     instance of the Patient class is returned containing the patient
@@ -205,7 +205,7 @@ def get_patient(mrn):
         Patient:  a Patient instance containing information for the
                   desired patient, or
         bool:  a boolean of False if the patient does not exist in
-               the database  
+               the database
     """
     patient = Patient.get_patient_from_db(mrn)
     if patient is None:
@@ -260,7 +260,8 @@ def initialize_server():
     add_patient_to_db({"name": "Ann Ables",
                        "id": 1,
                        "blood_type": "A+"})
-    
+
+
 def connect_to_db():
     """Setup connection to MongoDB Database
 
